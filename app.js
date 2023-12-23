@@ -5,6 +5,8 @@ const debug = require("debug")("task_1");
 const dotEnv = require("dotenv").config({ path: "./src/config/.env.local" });
 
 //* internal modules import
+const connectDB = require("./src/config/db");
+const authRouter = require("./src/routes/auth");
 
 const app = express();
 
@@ -19,12 +21,11 @@ app.use((req, res, next) => {
 });
 
 //* Database connection
-const connectDB = require("./src/config/db");
 connectDB();
 debug("Connected To Database");
 
 //* Routes
-app.use("/auth", require("./src/routes/auth"));
+app.use("/auth", authRouter);
 
 //* server start
 const PORT = process.env.PORT;
