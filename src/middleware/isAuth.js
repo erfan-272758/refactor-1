@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
 const UnauthorizedException = require("../exception/UnauthorizedException");
+const { catchMiddleware } = require("./utils");
 
-module.exports = (req, res, next) => {
+module.exports = catchMiddleware((req, res, next) => {
   let decodedToken;
   try {
     const authToken = req.get("Authorization");
@@ -23,4 +24,4 @@ module.exports = (req, res, next) => {
     console.error(err);
     throw new UnauthorizedException(err.message);
   }
-};
+});
