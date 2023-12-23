@@ -1,6 +1,6 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const server = require("../app");
+const server = require("../../app");
 
 //* Assertion Style
 chai.should();
@@ -58,7 +58,7 @@ describe("Task APIs", () => {
       .end((err, response) => {
         response.should.have.status(422);
         response.text.should.be.eq(
-          "Provided data is not valid! Secret String should not contain - and . in the same time.",
+          "Provided data is not valid! Secret String should not contain - and . in the same time."
         );
 
         done();
@@ -103,12 +103,12 @@ describe("Task APIs", () => {
         .send(user)
         .set(
           "Authorization",
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTk4ZDRkOWRiMTFhN2I0YWU3OTYwMWMiLCJpYXQiOjE2Mzc0NTE4MjcsImV4cCI6MTYzNzQ1NTQyN30.auxR0C2H3y5ILJt0rY_WdOTuoCWyYfXXEwOmqO-Tg1E",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTk4ZDRkOWRiMTFhN2I0YWU3OTYwMWMiLCJpYXQiOjE2Mzc0NTE4MjcsImV4cCI6MTYzNzQ1NTQyN30.auxR0C2H3y5ILJt0rY_WdOTuoCWyYfXXEwOmqO-Tg1E"
         )
         .end((err, response) => {
           response.should.have.status(200);
           response.text.should.be.eq(
-            `You are authenticated and your name is ${fullname}`,
+            `You are authenticated and your name is ${fullname}`
           );
           done();
         });
@@ -126,7 +126,7 @@ describe("Task APIs", () => {
         .send(user)
         .set(
           "Authorization",
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTk4MTFiYWU0NTAzZmY3ZjJmMTNjZTciLCJpYXQiOjE2Mzc0NTI3ODUsImV4cCI6MTYzNzQ1NjM4NX0.cOJN1skSKpBuMjX2-m1IbGgyW-RZFI8TWIKnv0JVqW0",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTk4MTFiYWU0NTAzZmY3ZjJmMTNjZTciLCJpYXQiOjE2Mzc0NTI3ODUsImV4cCI6MTYzNzQ1NjM4NX0.cOJN1skSKpBuMjX2-m1IbGgyW-RZFI8TWIKnv0JVqW0"
         )
         .end((err, response) => {
           response.should.have.status(401);
