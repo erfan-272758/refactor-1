@@ -29,5 +29,5 @@ app.use("/auth", require("./routes/auth"));
 //* server start
 const PORT = process.env.PORT;
 module.exports = app.listen(PORT, () =>
-  debug(`server is running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+  debug(`server is running in ${process.env.NODE_ENV} mode on port ${PORT}`),
 );
