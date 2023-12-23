@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
         minlength: 3,
         maxlength: 13,
     },
+    otp: {
+        type: String,
+        required: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now,

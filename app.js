@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 
 
 //* Database connection
-const connectDB = require('./config/db');
+const connectDB = require('./configs/db');
 connectDB();
 debug("Connected To Database");
 
