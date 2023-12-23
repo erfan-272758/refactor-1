@@ -7,10 +7,10 @@ const connectDB = async () => {
       useNewUrlParser: true,
     });
     debug(
-      `MongoDB Connected : ${conn.connection.host}:${conn.connection.port}`,
+      `MongoDB Connected : ${conn.connection.host}:${conn.connection.port}`
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
     process.exit(1);
   }
 };

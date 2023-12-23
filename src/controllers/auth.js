@@ -15,7 +15,7 @@ exports.signUp = async (req, res) => {
       return res
         .status(422)
         .send(
-          "Provided data is not valid! Secret String should not contain - and . in the same time.",
+          "Provided data is not valid! Secret String should not contain - and . in the same time."
         );
     } else {
       const exists = await User.findOne({ secretString: secretString });
@@ -24,7 +24,7 @@ exports.signUp = async (req, res) => {
         return res
           .status(409)
           .send(
-            "User can not be created bacause a document with this secret string already exists.",
+            "User can not be created bacause a document with this secret string already exists."
           );
       } else {
         const user = await User.create({
@@ -38,7 +38,7 @@ exports.signUp = async (req, res) => {
       }
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
           const token = jwt.sign(
             { userId: user._id.toString() },
             process.env.JWT_SECRET,
-            { expiresIn: "1h" },
+            { expiresIn: "1h" }
           );
           return res
             .status(200)
@@ -67,7 +67,7 @@ exports.login = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
       return res.status(500).json({ message: "An error occured." });
     });
 };
@@ -80,7 +80,7 @@ exports.getName = async (req, res) => {
     return res
       .status(422)
       .send(
-        "Provided data is not valid! Secret String should not contain - and . in the same time.",
+        "Provided data is not valid! Secret String should not contain - and . in the same time."
       );
   }
   User.findOne({ secretString: secretString })
@@ -101,7 +101,7 @@ exports.getName = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
       return res.status(400).send("Invalid input.");
     });
 };
