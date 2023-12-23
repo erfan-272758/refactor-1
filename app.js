@@ -7,6 +7,7 @@ const dotEnv = require("dotenv").config({ path: "./src/config/.env.local" });
 //* internal modules import
 const connectDB = require("./src/config/db");
 const authRouter = require("./src/routes/auth");
+const exceptionHandler = require("./src/middleware/exceptionHandler");
 
 const app = express();
 
@@ -26,6 +27,9 @@ debug("Connected To Database");
 
 //* Routes
 app.use("/auth", authRouter);
+
+//* Exception Handler
+app.use(exceptionHandler);
 
 //* server start
 const PORT = process.env.PORT;
