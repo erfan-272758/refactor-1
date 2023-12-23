@@ -1,3 +1,4 @@
+const NotFoundException = require("../exception/NotFoundException");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
@@ -6,12 +7,12 @@ exports.signUp = async (req, res) => {
     const fullname = req.body.fullname;
     const secretString = req.body.secretString;
 
-    if (fullname == null || secretString == null) {
-      return res.status(404).send("Please provide all requested data.");
-    }
+    if (fullname == null || secretString == null)
+      throw new NotFoundException("Please provide all requested data.");
 
     // just to handle secret string not having dots or dashes
     if (secretString.includes(".") && secretString.includes("-"))
+    throw new 
       return res
         .status(422)
         .send(
