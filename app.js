@@ -2,7 +2,7 @@
 const express = require("express");
 const path = require("path");
 const debug = require("debug")("task_1");
-const dotEnv = require("dotenv").config({ path: "./src/config/config.env" });
+const dotEnv = require("dotenv").config({ path: "./src/config/.env.local" });
 
 //* internal modules import
 
