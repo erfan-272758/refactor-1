@@ -44,28 +44,27 @@ exports.login = async (req, res) => {
   const secretString = req.body.secretString;
   const otp = req.body.otp;
 
-  User.findOne({ secretString: secretString })
-    .then((user) => {
-      if (!user)
-        return res.status(404).send("Please provide valid credentials.");
+  try {
+    const user = await User.findOne({ secretString: secretString });
 
-      if (user.otp !== otp)
-        return res.status(404).send("Please provide valid credentials.");
+    if (!user) return res.status(404).send("Please provide valid credentials.");
 
-      const fullname = user.fullname;
-      const token = jwt.sign(
-        { userId: user._id.toString() },
-        process.env.JWT_SECRET,
-        { expiresIn: "1h" }
-      );
-      return res
-        .status(200)
-        .json({ message: `Dear ${fullname} you are logged in`, token });
-    })
-    .catch((err) => {
-      console.error(err);
-      return res.status(500).json({ message: "An error occured." });
-    });
+    if (user.otp !== otp)
+      return res.status(404).send("Please provide valid credentials.");
+
+    const fullname = user.fullname;
+    const token = jwt.sign(
+      { userId: user._id.toString() },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    return res
+      .status(200)
+      .json({ message: `Dear ${fullname} you are logged in`, token });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "An error occured." });
+  }
 };
 
 exports.getName = async (req, res) => {
@@ -80,22 +79,22 @@ exports.getName = async (req, res) => {
       );
   }
 
-  User.findOne({ secretString: secretString })
-    .then((user) => {
-      const userId = user.id;
+  try {
+    const user = User.findOne({ secretString: secretString });
 
-      if (userId.toString() !== req.userId)
-        return res.status(401).send("Credentials not valid.");
+    const userId = user.id;
 
-      if (!user) return res.status(401).send("User not found.");
+    if (userId.toString() !== req.userId)
+      return res.status(401).send("Credentials not valid.");
 
-      const fullname = user.fullname;
-      return res
-        .status(200)
-        .send(`You are authenticated and your name is ${fullname}`);
-    })
-    .catch((err) => {
-      console.error(err);
-      return res.status(400).send("Invalid input.");
-    });
+    if (!user) return res.status(401).send("User not found.");
+
+    const fullname = user.fullname;
+    return res
+      .status(200)
+      .send(`You are authenticated and your name is ${fullname}`);
+  } catch (err) {
+    console.error(err);
+    return res.status(400).send("Invalid input.");
+  }
 };
